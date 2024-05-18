@@ -16,6 +16,10 @@ public class MenuManager {
     }
 
     public boolean login(String username, String password) {
+        // Implement the logic for user login
+        // If login successful, set loggedInUser
+        return false;
+    }
 
     public void showMenu() {
         // Implement the logic to show the menu
