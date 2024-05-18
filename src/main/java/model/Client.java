@@ -3,6 +3,11 @@ package model;
 public class Client {
     private String name, contact;
 
+    public Client(String name, String contact) {
+        this.name = name;
+        this.contact = contact;
+    }
+
     public String getName() {
         return name;
     }

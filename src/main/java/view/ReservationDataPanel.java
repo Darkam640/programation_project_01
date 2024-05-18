@@ -4,6 +4,8 @@
  */
 package view;
 
+import controller.ReservationManager;
+
 /**
  *
  * @author Lenovo
@@ -37,6 +39,14 @@ public class ReservationDataPanel extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    public void addCancelReservationListener(ReservationManager.CancelReservationListener cancelReservationListener) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void addAddReservationListener(ReservationManager.AddReservationListener addReservationListener) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

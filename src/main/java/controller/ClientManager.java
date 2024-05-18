@@ -1,16 +1,13 @@
 package controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Client;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import view.FRM_Client;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +17,7 @@ public class ClientManager {
     private FRM_Client frmClient;
 
     private static final String JSON_FILE_PATH = "clients.json";
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public ClientManager(FRM_Client frmClient) {
         this.clients = loadClientsFromJSON(); // Load clients from JSON file
@@ -56,37 +54,27 @@ public class ClientManager {
 
     private List<Client> loadClientsFromJSON() {
         List<Client> loadedClients = new ArrayList<>();
-        try (FileReader reader = new FileReader(JSON_FILE_PATH)) {
-            JSONParser parser = new JSONParser();
-            JSONArray jsonArray = (JSONArray) parser.parse(reader);
-            for (Object obj : jsonArray) {
-                JSONObject jsonObject = (JSONObject) obj;
-                String name = (String) jsonObject.get("name");
-                String contact = (String) jsonObject.get("contact");
-                loadedClients.add(new Client(name, contact));
+        try {
+            File file = new File(JSON_FILE_PATH);
+            if (file.exists()) {
+                loadedClients = objectMapper.readValue(file, new TypeReference<List<Client>>() {});
             }
-        } catch (IOException | ParseException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return loadedClients;
     }
 
     private void saveClientsToJSON() {
-        JSONArray jsonArray = new JSONArray();
-        for (Client client : clients) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("name", client.getName());
-            jsonObject.put("contact", client.getContact());
-            jsonArray.add(jsonObject);
-        }
-        try (FileWriter writer = new FileWriter(JSON_FILE_PATH)) {
-            writer.write(jsonArray.toJSONString());
+        try {
+            objectMapper.writeValue(new File(JSON_FILE_PATH), clients);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private class AddClientListener implements ActionListener {
+    public class AddClientListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e) {
             // Implement the logic to add a client
             String name = frmClient.getClientName();
@@ -96,7 +84,8 @@ public class ClientManager {
         }
     }
 
-    private class RemoveClientListener implements ActionListener {
+    public class RemoveClientListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e) {
             // Implement the logic to remove a client
             String name = frmClient.getClientName();
@@ -108,7 +97,8 @@ public class ClientManager {
         }
     }
 
-    private class FindClientListener implements ActionListener {
+    public class FindClientListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e) {
             // Implement the logic to find a client
             String name = frmClient.getClientName();
