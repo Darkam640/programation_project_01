@@ -16,6 +16,10 @@ public class MenuManager {
     }
 
     public boolean login(String username, String password) {
+        // Implement the logic for user login
+        // If login successful, set loggedInUser
+        return false;
+    }
 
     public void showMenu() {
         // Implement the logic to show the menu
@@ -31,6 +35,7 @@ public class MenuManager {
     }
 
     public class LoginListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e) {
             // Implement the logic for user login
             String username = frmMenu.getUsername();
@@ -44,6 +49,7 @@ public class MenuManager {
     }
 
     public class LogoutListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e) {
             logout();
             // Show login screen
