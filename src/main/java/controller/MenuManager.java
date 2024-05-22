@@ -53,7 +53,6 @@ public class MenuManager {
         public void actionPerformed(ActionEvent e) {
             logout();
             // Show login screen
-            //Almenos ya funciona
         }
     }
 }
