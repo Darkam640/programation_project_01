@@ -4,6 +4,8 @@
  */
 package view;
 
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author Lenovo
@@ -13,8 +15,17 @@ public class ButtonsPanel extends javax.swing.JPanel {
     /**
      * Creates new form ButtonsPanel
      */
-    public ButtonsPanel() {
+    public ButtonsPanel() 
+    {
         initComponents();
+    }
+    
+    public void escucharBotones(ActionListener manejador)
+    {
+        this.btAgregar.addActionListener(manejador);
+        this.btBuscar.addActionListener(manejador);
+        this.btEliminar.addActionListener(manejador);
+        this.btSalir.addActionListener(manejador);
     }
 
     /**
@@ -26,19 +37,54 @@ public class ButtonsPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btAgregar = new javax.swing.JButton();
+        btBuscar = new javax.swing.JButton();
+        btEliminar = new javax.swing.JButton();
+        btSalir = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(0, 102, 102));
+
+        btAgregar.setText("Agregar");
+
+        btBuscar.setText("Buscar");
+
+        btEliminar.setText("Eliminar");
+
+        btSalir.setText("Salir");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btAgregar)
+                .addGap(26, 26, 26)
+                .addComponent(btBuscar)
+                .addGap(31, 31, 31)
+                .addComponent(btEliminar)
+                .addGap(28, 28, 28)
+                .addComponent(btSalir)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btAgregar)
+                    .addComponent(btBuscar)
+                    .addComponent(btEliminar)
+                    .addComponent(btSalir))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAgregar;
+    private javax.swing.JButton btBuscar;
+    private javax.swing.JButton btEliminar;
+    private javax.swing.JButton btSalir;
     // End of variables declaration//GEN-END:variables
 }

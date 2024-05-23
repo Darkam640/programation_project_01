@@ -13,9 +13,12 @@ public class FRM_Report extends javax.swing.JFrame {
     /**
      * Creates new form FRM_Report
      */
-    public FRM_Report() {
+    public FRM_Report() 
+    {
         initComponents();
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
