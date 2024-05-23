@@ -78,9 +78,7 @@ public class ReservationManager {
 
     public class AddReservationListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // Implement the logic to add a reservation
-            // Extract data from view and create a ClientReservation
-            // Call addReservation method
+            
         }
     }
 
