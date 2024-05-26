@@ -37,7 +37,7 @@ public class ReservationManager {
         this.westParkingSpaces = initializeParkingSpaces("west");
         this.reservationDataPanel = reservationDataPanel;
         this.reservationDataPanel.addAddReservationListener(new AddReservationListener());
-        this.reservationDataPanel.addCancelReservationListener(new CancelReservationListener());
+        //this.reservationDataPanel.addCancelReservationListener(new CancelReservationListener());
     }
 
     public void addReservation(ClientReservation reservation) {
@@ -139,12 +139,21 @@ public class ReservationManager {
     }
 
     public class AddReservationListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e) {
             String clientName = reservationDataPanel.getClientName();
             String clientContact = reservationDataPanel.getClientContact();
             String side = reservationDataPanel.getSelectedSide();
 
-            ClientReservation reservation = new ClientReservation(clientName, clientContact);
+            /* Aquí se debe crear un objeto Client y un objeto VehicleType
+             Ejemplo:
+            Client client = new Client(clientName, clientContact);
+            VehicleType vehicleType = new VehicleType(); // Esto debería ser definido correctamente
+            LocalDateTime reservationTime = LocalDateTime.now();
+            int duration = 2; // Esto puede ser tomado desde el formulario o ser un valor predeterminado
+            TariffType tariffType = new TariffType(); // Esto debería ser definido correctamente
+
+            ClientReservation reservation = new ClientReservation(client, vehicleType, reservationTime, duration, tariffType);
             switch (side) {
                 case "north":
                     assignParkingSpace(reservation, northParkingSpaces);
@@ -161,10 +170,13 @@ public class ReservationManager {
                 default:
                     reservationDataPanel.showInvalidSideMessage(); // Mostrar mensaje de que el lado seleccionado es inválido
             }
+            */
         }
+        
     }
 
     public class CancelReservationListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e) {
             String clientName = reservationDataPanel.getClientName();
             ClientReservation reservation = findReservationByName(clientName);
