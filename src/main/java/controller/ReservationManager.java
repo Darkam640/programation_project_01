@@ -37,7 +37,7 @@ public class ReservationManager {
         this.westParkingSpaces = initializeParkingSpaces("west");
         this.reservationDataPanel = reservationDataPanel;
         this.reservationDataPanel.addAddReservationListener(new AddReservationListener());
-        //this.reservationDataPanel.addCancelReservationListener(new CancelReservationListener());
+        this.reservationDataPanel.addCancelReservationListener(new CancelReservationListener());
     }
 
     public void addReservation(ClientReservation reservation) {
