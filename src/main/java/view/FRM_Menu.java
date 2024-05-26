@@ -26,7 +26,14 @@ public class FRM_Menu extends javax.swing.JFrame {
     {
         this.jmiCliente.addActionListener(manejador);
         this.jmiReporte.addActionListener(manejador);
+        this.jmiReservaciones.addActionListener(manejador);
         this.jmiSalir.addActionListener(manejador);
+    }
+    
+    public void escucharBotonesUser(ActionListener manejador)
+    {
+        this.btIniciarSesion.addActionListener(manejador);
+        this.btCerrarSesion.addActionListener(manejador);
     }
     
     public void setUsuario(User user)
@@ -46,6 +53,14 @@ public class FRM_Menu extends javax.swing.JFrame {
         jtUsuario.setText("");
         jtContraseña.setText("");
     }
+    
+    public void esconderObciones()
+    {
+        jmiCliente.setVisible(false);
+        jmiReporte.setVisible(false);
+        jmiReservaciones.setVisible(false);
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -62,10 +77,13 @@ public class FRM_Menu extends javax.swing.JFrame {
         jtContraseña = new javax.swing.JTextField();
         jtUsuario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        btIniciarSesion = new javax.swing.JButton();
+        btCerrarSesion = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        jmiReservaciones = new javax.swing.JMenu();
         jmiCliente = new javax.swing.JMenuItem();
         jmiReporte = new javax.swing.JMenuItem();
+        Reservaciones = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jmiSalir = new javax.swing.JMenuItem();
 
@@ -80,6 +98,10 @@ public class FRM_Menu extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
         jLabel3.setText("Usuario");
 
+        btIniciarSesion.setText("Iniciar sesion");
+
+        btCerrarSesion.setText("Cerrar sesion");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -88,18 +110,24 @@ public class FRM_Menu extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                        .addComponent(jtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
-                        .addComponent(jtUsuario)))
-                .addGap(205, 205, 205))
+                        .addComponent(jtUsuario))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addComponent(jtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(186, 186, 186))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(156, 156, 156)
                 .addComponent(jLabel3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(btIniciarSesion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btCerrarSesion)
+                .addGap(42, 42, 42))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,18 +142,25 @@ public class FRM_Menu extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btIniciarSesion)
+                    .addComponent(btCerrarSesion))
+                .addGap(50, 50, 50))
         );
 
-        jMenu1.setText("File");
+        jmiReservaciones.setText("File");
 
         jmiCliente.setText("Reservar cliente");
-        jMenu1.add(jmiCliente);
+        jmiReservaciones.add(jmiCliente);
 
         jmiReporte.setText("Reporte");
-        jMenu1.add(jmiReporte);
+        jmiReservaciones.add(jmiReporte);
 
-        jMenuBar1.add(jMenu1);
+        Reservaciones.setText("Reservaciones");
+        jmiReservaciones.add(Reservaciones);
+
+        jMenuBar1.add(jmiReservaciones);
 
         jMenu2.setText("Edit");
 
@@ -172,15 +207,18 @@ public class FRM_Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Reservaciones;
+    private javax.swing.JButton btCerrarSesion;
+    private javax.swing.JButton btIniciarSesion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JMenuItem jmiCliente;
     private javax.swing.JMenuItem jmiReporte;
+    private javax.swing.JMenu jmiReservaciones;
     private javax.swing.JMenuItem jmiSalir;
     private javax.swing.JTextField jtContraseña;
     private javax.swing.JTextField jtUsuario;
