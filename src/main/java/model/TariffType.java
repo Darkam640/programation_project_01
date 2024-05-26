@@ -1,7 +1,7 @@
 package model;
 
 public enum TariffType {
-    HOURLY,
+    MIDDAY,
     DAILY,
     NIGHTLY
 }

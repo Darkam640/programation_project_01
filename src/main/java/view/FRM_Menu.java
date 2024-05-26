@@ -54,7 +54,7 @@ public class FRM_Menu extends javax.swing.JFrame {
         jtContraseña.setText("");
     }
     
-    public void esconderObciones()
+    public void esconderOpciones()
     {
         jmiCliente.setVisible(false);
         jmiReporte.setVisible(false);

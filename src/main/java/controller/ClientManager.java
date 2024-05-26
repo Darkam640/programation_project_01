@@ -2,25 +2,27 @@ package controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.Client;
+import model.*;
 import view.FRM_Client;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClientManager {
-    private List<Client> clients;
+
+    private List<ClientReservationData> clientReservationDataList;
     private FRM_Client frmClient;
 
-    private static final String JSON_FILE_PATH = "clients.json";
+    private static final String JSON_FILE_PATH = "client_reservation_data.json";
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public ClientManager(FRM_Client frmClient) {
-        this.clients = loadClientsFromJSON(); // Load clients from JSON file
+        this.clientReservationDataList = loadClientReservationDataFromJSON();
         this.frmClient = frmClient;
         this.frmClient.addAddClientListener(new AddClientListener());
         this.frmClient.addRemoveClientListener(new RemoveClientListener());
@@ -28,46 +30,59 @@ public class ClientManager {
     }
 
     public void addClient(Client client) {
-        clients.add(client);
-        saveClientsToJSON(); // Save clients to JSON file after adding
-        // Logic to update the view
+        // Create a reservation for the client
+        VehicleType defaultVehicleType = VehicleType.CAR;
+        LocalDateTime reservationTime = LocalDateTime.now();
+        int duration = 2;
+        TariffType defaultTariffType = TariffType.DAILY;
+        ClientReservation reservation = new ClientReservation(client, defaultVehicleType, reservationTime, duration, defaultTariffType);
+        // Create ClientReservationData object and add it to the list
+        ClientReservationData clientReservationData = new ClientReservationData(client, reservation);
+        clientReservationDataList.add(clientReservationData);
+        saveClientReservationDataToJSON();
+        // Update view if necessary
     }
 
     public void removeClient(Client client) {
-        clients.remove(client);
-        saveClientsToJSON(); // Save clients to JSON file after removing
-        // Logic to update the view
+        // Remove client and associated reservation data from the list
+        clientReservationDataList.removeIf(data -> data.getClient().equals(client));
+        saveClientReservationDataToJSON();
+        // Update view if necessary
     }
 
     public Client findClient(String name) {
-        for (Client client : clients) {
-            if (client.getName().equals(name)) {
-                return client;
+        for (ClientReservationData data : clientReservationDataList) {
+            if (data.getClient().getName().equals(name)) {
+                return data.getClient();
             }
         }
         return null;
     }
 
     public List<Client> getAllClients() {
+        List<Client> clients = new ArrayList<>();
+        for (ClientReservationData data : clientReservationDataList) {
+            clients.add(data.getClient());
+        }
         return clients;
     }
 
-    private List<Client> loadClientsFromJSON() {
-        List<Client> loadedClients = new ArrayList<>();
+    private List<ClientReservationData> loadClientReservationDataFromJSON() {
+        List<ClientReservationData> loadedClientReservationDataList = new ArrayList<>();
         try {
             File file = new File(JSON_FILE_PATH);
             if (file.exists()) {
-                loadedClients = objectMapper.readValue(file, new TypeReference<List<Client>>() {});
+                loadedClientReservationDataList = objectMapper.readValue(file, new TypeReference<List<ClientReservationData>>() {});
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return loadedClients;
+        return loadedClientReservationDataList;
     }
 
-    private void saveClientsToJSON() {
+    private void saveClientReservationDataToJSON() {
         try {
-            objectMapper.writeValue(new File(JSON_FILE_PATH), clients);
+            objectMapper.writeValue(new File(JSON_FILE_PATH), clientReservationDataList);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,7 +91,6 @@ public class ClientManager {
     public class AddClientListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            // Implement the logic to add a client
             String name = frmClient.getClientName();
             String contact = frmClient.getClientContact();
             addClient(new Client(name, contact));
@@ -87,7 +101,6 @@ public class ClientManager {
     public class RemoveClientListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            // Implement the logic to remove a client
             String name = frmClient.getClientName();
             Client client = findClient(name);
             if (client != null) {
@@ -100,7 +113,6 @@ public class ClientManager {
     public class FindClientListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            // Implement the logic to find a client
             String name = frmClient.getClientName();
             Client client = findClient(name);
             if (client != null) {

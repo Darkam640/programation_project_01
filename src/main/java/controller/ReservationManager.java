@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.ClientReservation;
 import model.ParkingSpace;
-import view.ReservationDataPanel;
+import view.FRM_Client;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,22 +22,22 @@ public class ReservationManager {
     private List<ParkingSpace> southParkingSpaces;
     private List<ParkingSpace> eastParkingSpaces;
     private List<ParkingSpace> westParkingSpaces;
-    private ReservationDataPanel reservationDataPanel;
+    private FRM_Client frm_client;
 
     private static final String ACTIVE_RESERVATIONS_JSON_FILE_PATH = "active_reservations.json";
     private static final String CANCELLED_RESERVATIONS_JSON_FILE_PATH = "cancelled_reservations.json";
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public ReservationManager(ReservationDataPanel reservationDataPanel) {
+    public ReservationManager(FRM_Client frm_client) {
         this.activeReservations = loadReservationsFromJSON(ACTIVE_RESERVATIONS_JSON_FILE_PATH);
         this.cancelledReservations = loadReservationsFromJSON(CANCELLED_RESERVATIONS_JSON_FILE_PATH);
         this.northParkingSpaces = initializeParkingSpaces("north");
         this.southParkingSpaces = initializeParkingSpaces("south");
         this.eastParkingSpaces = initializeParkingSpaces("east");
         this.westParkingSpaces = initializeParkingSpaces("west");
-        this.reservationDataPanel = reservationDataPanel;
-        this.reservationDataPanel.addAddReservationListener(new AddReservationListener());
-        this.reservationDataPanel.addCancelReservationListener(new CancelReservationListener());
+        this.frm_client = frm_client;
+        this.frm_client.addAddReservationListener(new AddReservationListener());
+        this.frm_client.addCancelReservationListener(new CancelReservationListener());
     }
 
     public void addReservation(ClientReservation reservation) {
@@ -132,18 +132,18 @@ public class ReservationManager {
             reservation.setParkingSpace(space);
             space.setOccupied(true);
             addReservation(reservation);
-            reservationDataPanel.updateView(); // Actualizar la vista después de agregar la reserva
+            frm_client.updateView(); // Actualizar la vista después de agregar la reserva
         } else {
-            reservationDataPanel.showNoAvailableSpaceMessage(); // Mostrar mensaje de que no hay espacios disponibles
+            frm_client.showNoAvailableSpaceMessage(); // Mostrar mensaje de que no hay espacios disponibles
         }
     }
 
     public class AddReservationListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String clientName = reservationDataPanel.getClientName();
-            String clientContact = reservationDataPanel.getClientContact();
-            String side = reservationDataPanel.getSelectedSide();
+            String clientName = frm_client.getClientName();
+            String clientContact = frm_client.getClientContact();
+            String side = frm_client.getSelectedSide();
 
             /* Aquí se debe crear un objeto Client y un objeto VehicleType
              Ejemplo:
@@ -178,14 +178,14 @@ public class ReservationManager {
     public class CancelReservationListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String clientName = reservationDataPanel.getClientName();
+            String clientName = frm_client.getClientName();
             ClientReservation reservation = findReservationByName(clientName);
             if (reservation != null) {
                 cancelReservation(reservation);
                 reservation.getParkingSpace().setOccupied(false);
-                reservationDataPanel.updateView(); // Actualizar la vista después de cancelar la reserva
+                frm_client.updateView(); // Actualizar la vista después de cancelar la reserva
             } else {
-                reservationDataPanel.showReservationNotFoundMessage(); // Mostrar mensaje de que la reserva no fue encontrada
+                frm_client.showReservationNotFoundMessage(); // Mostrar mensaje de que la reserva no fue encontrada
             }
         }
     }
