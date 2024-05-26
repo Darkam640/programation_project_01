@@ -4,11 +4,13 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class ClientReservation {
+
     private Client client;
     private VehicleType vehicleType;
     private LocalDateTime start;
     private int durationHours;
     private TariffType tariffType;
+    private ParkingSpace parkingSpace;
 
     public ClientReservation(Client client, VehicleType vehicleType, LocalDateTime start, int durationHours, TariffType tariffType) {
         this.client = client;
@@ -76,5 +78,19 @@ public class ClientReservation {
 
     public void setTariffType(TariffType tariffType) {
         this.tariffType = tariffType;
+    }
+
+    public void setParkingSpace(ParkingSpace space) {
+        // Establece el espacio de estacionamiento asignado a esta reserva
+        this.parkingSpace = space;
+    }
+
+    public ParkingSpace getParkingSpace() {
+        // Devuelve el espacio de estacionamiento asignado a esta reserva
+        return parkingSpace;
+    }
+
+    public Object getClientName() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
