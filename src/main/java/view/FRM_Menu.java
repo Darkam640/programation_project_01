@@ -23,10 +23,8 @@ public class FRM_Menu extends javax.swing.JFrame {
     }
 
     public void escucharMenu(ActionListener manejador) {
-        this.jmiCliente.addActionListener(manejador);
         this.jmiReporte.addActionListener(manejador);
         this.jmiReservaciones.addActionListener(manejador);
-        this.jmiSalir.addActionListener(manejador);
     }
 
     public void escucharBotonesUser(ActionListener manejador) {
@@ -49,17 +47,13 @@ public class FRM_Menu extends javax.swing.JFrame {
     }
 
     public void esconderMenu() {
-        jmiCliente.setVisible(false);
         jmiReporte.setVisible(false);
         jmiReservaciones.setVisible(false);
-        jmiSalir.setVisible(false);
     }
 
     public void mostrarMenu() {
-        jmiCliente.setVisible(true);
         jmiReporte.setVisible(true);
         jmiReservaciones.setVisible(true);
-        jmiSalir.setVisible(true);
     }
 
     public void mostrarLogin() {
@@ -97,80 +91,113 @@ public class FRM_Menu extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btIniciarSesion = new javax.swing.JButton();
         btCerrarSesion = new javax.swing.JButton();
+        btReportes = new javax.swing.JButton();
+        btReservaciones = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmiReservaciones = new javax.swing.JMenu();
-        jmiCliente = new javax.swing.JMenuItem();
         jmiReporte = new javax.swing.JMenuItem();
         Reservaciones = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jmiSalir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 102));
 
+        jLabel1.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         jLabel1.setText("Usuario");
 
+        jLabel2.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         jLabel2.setText("Contraseña");
 
         jLabel3.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
-        jLabel3.setText("Usuario");
+        jLabel3.setText("Inicio de sesion Parqueo Juarez");
 
+        btIniciarSesion.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btIniciarSesion.setText("Iniciar sesion");
+        btIniciarSesion.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 255)));
 
         btCerrarSesion.setText("Cerrar sesion");
+
+        btReportes.setFont(new java.awt.Font("Eras Medium ITC", 0, 18)); // NOI18N
+        btReportes.setText("Reportes");
+        btReportes.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 0, 51)));
+        btReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btReportesActionPerformed(evt);
+            }
+        });
+
+        btReservaciones.setFont(new java.awt.Font("Eras Medium ITC", 0, 18)); // NOI18N
+        btReservaciones.setText("Reservaciones");
+        btReservaciones.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 0, 51)));
+        btReservaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btReservacionesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(12, 12, 12)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(jtUsuario))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btReservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(btReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(423, 423, 423))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                        .addComponent(jtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(186, 186, 186))
+                        .addGap(139, 139, 139)
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(208, 208, 208))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(156, 156, 156)
-                .addComponent(jLabel3)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(btCerrarSesion))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(231, 231, 231)
+                        .addComponent(btIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(btIniciarSesion)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btCerrarSesion)
-                .addGap(42, 42, 42))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(26, 26, 26)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btReservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btCerrarSesion)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btIniciarSesion)
-                    .addComponent(btCerrarSesion))
-                .addGap(50, 50, 50))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addComponent(btIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(175, 175, 175))
         );
 
         jmiReservaciones.setText("File");
-
-        jmiCliente.setText("Reservar cliente");
-        jmiReservaciones.add(jmiCliente);
 
         jmiReporte.setText("Reporte");
         jmiReservaciones.add(jmiReporte);
@@ -179,13 +206,6 @@ public class FRM_Menu extends javax.swing.JFrame {
         jmiReservaciones.add(Reservaciones);
 
         jMenuBar1.add(jmiReservaciones);
-
-        jMenu2.setText("Edit");
-
-        jmiSalir.setText("Salir");
-        jMenu2.add(jmiSalir);
-
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -202,6 +222,14 @@ public class FRM_Menu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReportesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btReportesActionPerformed
+
+    private void btReservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReservacionesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btReservacionesActionPerformed
 
 
 
@@ -225,16 +253,15 @@ public class FRM_Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem Reservaciones;
     private javax.swing.JButton btCerrarSesion;
     private javax.swing.JButton btIniciarSesion;
+    private javax.swing.JButton btReportes;
+    private javax.swing.JButton btReservaciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JMenuItem jmiCliente;
     private javax.swing.JMenuItem jmiReporte;
     private javax.swing.JMenu jmiReservaciones;
-    private javax.swing.JMenuItem jmiSalir;
     private javax.swing.JTextField jtContraseña;
     private javax.swing.JTextField jtUsuario;
     // End of variables declaration//GEN-END:variables
