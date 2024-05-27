@@ -16,6 +16,9 @@ public class FRM_Client extends javax.swing.JFrame {
      */
     public FRM_Client() {
         initComponents();
+        cargarComboEstacionamiento();
+        cargarComboHorario();
+        cargarComboVehiculo();
     }
 
     public ButtonsPanel getPanelBotones() {
