@@ -132,6 +132,10 @@ public class FRM_Client extends javax.swing.JFrame {
     public void addSearchReservationListener(ReservationManager.SearchReservationListener searchReservationListener) {
         this.buttonsPanel1.getFindButton().addActionListener(searchReservationListener);
     }
+    
+    public void addBackButtonListener(ReservationManager.BackMenuListener backMenulistener) {
+        this.buttonsPanel1.getExitButton().addActionListener(backMenulistener);
+    }
 
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

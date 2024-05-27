@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuManager {
+
     private User loggedInUser;
     private FRM_Menu frmMenu;
 
@@ -16,43 +17,50 @@ public class MenuManager {
     }
 
     public boolean login(String username, String password) {
-        // Implement the logic for user login
-        // If login successful, set loggedInUser
+        // Aquí implementamos la lógica de inicio de sesión, por ahora es solo un ejemplo
+        if (username.equals("admin") && password.equals("admin")) {
+            loggedInUser = new User(username, password);
+            return true;
+        }
         return false;
-    }
-
-    public void showMenu() {
-        // Implement the logic to show the menu
     }
 
     public void generateReport() {
         // Implement the logic to generate a report
     }
 
+    public void showMainMenu() {
+        frmMenu.esconderLogin();
+        frmMenu.mostrarMenu();
+    }
+
     public void logout() {
         this.loggedInUser = null;
-        // Implement the logic for user logout
+        frmMenu.mostrarLogin();
+        frmMenu.esconderMenu();
+        frmMenu.limpiar();
     }
 
     public class LoginListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            // Implement the logic for user login
             String username = frmMenu.getUsername();
             String password = frmMenu.getPassword();
             if (login(username, password)) {
-                showMenu();
+                showMainMenu();
             } else {
-                // Show login error
+                // Mostrar error de inicio de sesión
+                System.out.println("Login failed. Please try again.");
             }
         }
     }
 
     public class LogoutListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             logout();
-            // Show login screen
         }
     }
 }

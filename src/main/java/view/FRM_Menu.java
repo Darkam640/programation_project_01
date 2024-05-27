@@ -17,49 +17,67 @@ public class FRM_Menu extends javax.swing.JFrame {
     /**
      * Creates new form FRM_Menu
      */
-    public FRM_Menu() 
-    {
+    public FRM_Menu() {
         initComponents();
+        esconderMenu();
     }
-    
-    public void escucharMenu(ActionListener manejador)
-    {
+
+    public void escucharMenu(ActionListener manejador) {
         this.jmiCliente.addActionListener(manejador);
         this.jmiReporte.addActionListener(manejador);
         this.jmiReservaciones.addActionListener(manejador);
         this.jmiSalir.addActionListener(manejador);
     }
-    
-    public void escucharBotonesUser(ActionListener manejador)
-    {
+
+    public void escucharBotonesUser(ActionListener manejador) {
         this.btIniciarSesion.addActionListener(manejador);
         this.btCerrarSesion.addActionListener(manejador);
     }
-    
-    public void setUsuario(User user)
-    {
+
+    public void setUsuario(User user) {
         jtUsuario.setText(user.getUsername());
         jtContraseña.setText(user.getPassword());
     }
     
-    public User getUsuario(){
-        
-        return new User (jtUsuario.getText(),
-        this.jtContraseña.getText()); 
+    public User getUsuario() {
+        return new User(jtUsuario.getText(), jtContraseña.getText());
     }
-    
-    public void limpiar (){
-        
+
+    public void limpiar() {
         jtUsuario.setText("");
         jtContraseña.setText("");
     }
-    
-    public void esconderOpciones()
-    {
+
+    public void esconderMenu() {
         jmiCliente.setVisible(false);
         jmiReporte.setVisible(false);
         jmiReservaciones.setVisible(false);
+        jmiSalir.setVisible(false);
+    }
 
+    public void mostrarMenu() {
+        jmiCliente.setVisible(true);
+        jmiReporte.setVisible(true);
+        jmiReservaciones.setVisible(true);
+        jmiSalir.setVisible(true);
+    }
+
+    public void mostrarLogin() {
+        jLabel1.setVisible(true);
+        jLabel2.setVisible(true);
+        jtUsuario.setVisible(true);
+        jtContraseña.setVisible(true);
+        btIniciarSesion.setVisible(true);
+        btCerrarSesion.setVisible(true);
+    }
+
+    public void esconderLogin() {
+        jLabel1.setVisible(false);
+        jLabel2.setVisible(false);
+        jtUsuario.setVisible(false);
+        jtContraseña.setVisible(false);
+        btIniciarSesion.setVisible(false);
+        btCerrarSesion.setVisible(false);
     }
 
     /**
@@ -185,25 +203,22 @@ public class FRM_Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
 
 
     public void addLoginListener(MenuManager.LoginListener loginListener) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        btIniciarSesion.addActionListener(loginListener);
     }
 
     public void addLogoutListener(MenuManager.LogoutListener logoutListener) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        btCerrarSesion.addActionListener(logoutListener);
     }
 
     public String getUsername() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return jtUsuario.getText();
     }
 
     public String getPassword() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return jtContraseña.getText();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

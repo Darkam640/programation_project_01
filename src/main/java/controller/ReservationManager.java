@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+import view.FRM_Menu;
 
 public class ReservationManager {
 
@@ -24,12 +25,13 @@ public class ReservationManager {
     private List<ParkingSpace> eastParkingSpaces;
     private List<ParkingSpace> westParkingSpaces;
     private FRM_Client frm_client;
+    private MenuManager menuManager;
 
     private static final String ACTIVE_RESERVATIONS_JSON_FILE_PATH = "active_reservations.json";
     private static final String CANCELLED_RESERVATIONS_JSON_FILE_PATH = "cancelled_reservations.json";
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public ReservationManager(FRM_Client frm_client) {
+    public ReservationManager(FRM_Client frm_client, MenuManager menuManager) {
         this.activeReservations = loadReservationsFromJSON(ACTIVE_RESERVATIONS_JSON_FILE_PATH);
         this.cancelledReservations = loadReservationsFromJSON(CANCELLED_RESERVATIONS_JSON_FILE_PATH);
         this.northParkingSpaces = initializeParkingSpaces("north");
@@ -37,9 +39,11 @@ public class ReservationManager {
         this.eastParkingSpaces = initializeParkingSpaces("east");
         this.westParkingSpaces = initializeParkingSpaces("west");
         this.frm_client = frm_client;
+        this.menuManager = menuManager;
         this.frm_client.addAddReservationListener(new AddReservationListener());
         this.frm_client.addCancelReservationListener(new CancelReservationListener());
         this.frm_client.addSearchReservationListener(new SearchReservationListener());
+        this.frm_client.addBackButtonListener(new BackMenuListener());
     }
 
     public void addReservation(ClientReservation reservation) {
@@ -178,6 +182,14 @@ public class ReservationManager {
         }
     }
 
+    public class BackMenuListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            handleBackMenu();
+        }
+    }
+
     private void handleAddReservation() {
         String clientName = frm_client.getClientName();
         String clientContact = frm_client.getClientContact();
@@ -219,6 +231,10 @@ public class ReservationManager {
         } else {
             frm_client.showReservationNotFoundMessage();
         }
+    }
+
+    private void handleBackMenu() {
+        menuManager.showMainMenu();
     }
 
     private void handleSearchReservation() {
