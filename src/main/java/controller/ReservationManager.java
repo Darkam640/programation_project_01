@@ -197,8 +197,7 @@ public class ReservationManager {
         VehicleType vehicleType = VehicleType.valueOf(frm_client.getSelectedItemVehiculo().toUpperCase());
         LocalDateTime reservationTime = LocalDateTime.now();
         int duration = frm_client.getSelectedItemHorario().equals("Medio dia") ? 6 : (frm_client.getSelectedItemHorario().equals("Dia entero") ? 24 : 8);
-        // TariffType es un enum que debe ser definido según tu modelo
-        TariffType tariffType = TariffType.DAILY; // O el valor que corresponda según la selección del usuario
+        TariffType tariffType = TariffType.DAILY;
 
         ClientReservation reservation = new ClientReservation(clientName, clientContact, vehicleType, reservationTime, duration, tariffType);
 
