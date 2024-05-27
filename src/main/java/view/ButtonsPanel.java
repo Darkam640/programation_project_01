@@ -5,6 +5,7 @@
 package view;
 
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 
 /**
  *
@@ -26,6 +27,22 @@ public class ButtonsPanel extends javax.swing.JPanel {
         this.btBuscar.addActionListener(manejador);
         this.btEliminar.addActionListener(manejador);
         this.btSalir.addActionListener(manejador);
+    }
+    
+    public JButton getAddButton() {
+        return btAgregar;
+    }
+
+    public JButton getExitButton() {
+        return btSalir;
+    }
+    
+    public JButton getRemoveButton() {
+        return btEliminar;
+    }
+    
+    public JButton getFindButton() {
+        return btBuscar;
     }
 
     /**

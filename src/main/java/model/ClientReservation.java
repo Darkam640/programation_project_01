@@ -1,51 +1,40 @@
 package model;
 
 import java.time.LocalDateTime;
-import java.util.*;
 
 public class ClientReservation {
 
-    private Client client;
+    private String clientName;
+    private String clientContact;
     private VehicleType vehicleType;
     private LocalDateTime start;
     private int durationHours;
     private TariffType tariffType;
     private ParkingSpace parkingSpace;
 
-    public ClientReservation(Client client, VehicleType vehicleType, LocalDateTime start, int durationHours, TariffType tariffType) {
-        this.client = client;
+    public ClientReservation(String clientName, String clientContact, VehicleType vehicleType, LocalDateTime start, int durationHours, TariffType tariffType) {
+        this.clientName = clientName;
+        this.clientContact = clientContact;
         this.vehicleType = vehicleType;
         this.start = start;
         this.durationHours = durationHours;
         this.tariffType = tariffType;
     }
 
-    public boolean addReservation() {
-        // Implement the logic to add a reservation
-        return true;
+    public String getClientName() {
+        return clientName;
     }
 
-    public boolean checkAvailability() {
-        // Implement the logic to check availability
-        return true;
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
-    public boolean removeReservation() {
-        // Implement the logic to remove a reservation
-        return true;
+    public String getClientContact() {
+        return clientContact;
     }
 
-    public List<ClientReservation> getReservations() {
-        // Implement the logic to get reservations
-        return new ArrayList<>();
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClientContact(String clientContact) {
+        this.clientContact = clientContact;
     }
 
     public VehicleType getVehicleType() {
@@ -81,16 +70,10 @@ public class ClientReservation {
     }
 
     public void setParkingSpace(ParkingSpace space) {
-        // Establece el espacio de estacionamiento asignado a esta reserva
         this.parkingSpace = space;
     }
 
     public ParkingSpace getParkingSpace() {
-        // Devuelve el espacio de estacionamiento asignado a esta reserva
         return parkingSpace;
-    }
-
-    public Object getClientName() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

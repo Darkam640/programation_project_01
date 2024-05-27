@@ -2,20 +2,21 @@ package controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.ClientReservation;
-import model.ParkingSpace;
+import model.*;
 import view.FRM_Client;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
 public class ReservationManager {
+
     private List<ClientReservation> activeReservations;
     private List<ClientReservation> cancelledReservations;
     private List<ParkingSpace> northParkingSpaces;
@@ -38,12 +39,18 @@ public class ReservationManager {
         this.frm_client = frm_client;
         this.frm_client.addAddReservationListener(new AddReservationListener());
         this.frm_client.addCancelReservationListener(new CancelReservationListener());
+        this.frm_client.addSearchReservationListener(new SearchReservationListener());
     }
 
     public void addReservation(ClientReservation reservation) {
-        activeReservations.add(reservation);
-        saveReservationsToJSON(activeReservations, ACTIVE_RESERVATIONS_JSON_FILE_PATH);
-        // Logic to update the view
+        String clientContact = reservation.getClientContact();
+        if (findReservationByContact(clientContact) == null) {
+            activeReservations.add(reservation);
+            saveReservationsToJSON(activeReservations, ACTIVE_RESERVATIONS_JSON_FILE_PATH);
+            frm_client.updateView();
+        } else {
+            frm_client.showReservationExistsMessage();
+        }
     }
 
     public void cancelReservation(ClientReservation reservation) {
@@ -51,7 +58,21 @@ public class ReservationManager {
         cancelledReservations.add(reservation);
         saveReservationsToJSON(activeReservations, ACTIVE_RESERVATIONS_JSON_FILE_PATH);
         saveReservationsToJSON(cancelledReservations, CANCELLED_RESERVATIONS_JSON_FILE_PATH);
-        // Logic to update the view
+        frm_client.updateView();
+    }
+
+    public void searchReservation(String clientContact) {
+        ClientReservation reservation = findReservationByContact(clientContact);
+        if (reservation != null) {
+            String clientName = reservation.getClientName();
+            String selectedSide = frm_client.getSelectedSide();
+            String selectedItemVehiculo = frm_client.getSelectedItemVehiculo();
+            String selectedItemHorario = frm_client.getSelectedItemHorario();
+
+            frm_client.showReservationDetails(clientName, clientContact, selectedSide, selectedItemVehiculo, selectedItemHorario);
+        } else {
+            frm_client.showReservationNotFoundMessage();
+        }
     }
 
     public List<ClientReservation> getActiveReservations() {
@@ -83,31 +104,26 @@ public class ReservationManager {
     }
 
     private boolean checkParkingSpaceAvailability(List<ParkingSpace> parkingSpaces) {
-        for (ParkingSpace space : parkingSpaces) {
-            if (!space.isOccupied()) {
-                return true;
-            }
-        }
-        return false;
+        return parkingSpaces.stream().anyMatch(space -> !space.isOccupied());
     }
 
     private List<ClientReservation> loadReservationsFromJSON(String filePath) {
-        List<ClientReservation> loadedReservations = new ArrayList<>();
         try {
             File file = new File(filePath);
             if (file.exists()) {
-                loadedReservations = objectMapper.readValue(file, new TypeReference<List<ClientReservation>>() {});
+                return objectMapper.readValue(file, new TypeReference<List<ClientReservation>>() {
+                });
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return loadedReservations;
+        return new ArrayList<>();
     }
 
     private List<ParkingSpace> initializeParkingSpaces(String side) {
         List<ParkingSpace> spaces = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
-            spaces.add(new ParkingSpace(i + 1, side, false)); // Crear 12 espacios de estacionamiento para cada lado, inicialmente disponibles
+            spaces.add(new ParkingSpace(i + 1, side, false));
         }
         return spaces;
     }
@@ -132,67 +148,87 @@ public class ReservationManager {
             reservation.setParkingSpace(space);
             space.setOccupied(true);
             addReservation(reservation);
-            frm_client.updateView(); // Actualizar la vista después de agregar la reserva
+            frm_client.updateView();
         } else {
-            frm_client.showNoAvailableSpaceMessage(); // Mostrar mensaje de que no hay espacios disponibles
+            frm_client.showNoAvailableSpaceMessage();
         }
     }
 
     public class AddReservationListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            String clientName = frm_client.getClientName();
-            String clientContact = frm_client.getClientContact();
-            String side = frm_client.getSelectedSide();
-
-            /* Aquí se debe crear un objeto Client y un objeto VehicleType
-             Ejemplo:
-            Client client = new Client(clientName, clientContact);
-            VehicleType vehicleType = new VehicleType(); // Esto debería ser definido correctamente
-            LocalDateTime reservationTime = LocalDateTime.now();
-            int duration = 2; // Esto puede ser tomado desde el formulario o ser un valor predeterminado
-            TariffType tariffType = new TariffType(); // Esto debería ser definido correctamente
-
-            ClientReservation reservation = new ClientReservation(client, vehicleType, reservationTime, duration, tariffType);
-            switch (side) {
-                case "north":
-                    assignParkingSpace(reservation, northParkingSpaces);
-                    break;
-                case "south":
-                    assignParkingSpace(reservation, southParkingSpaces);
-                    break;
-                case "east":
-                    assignParkingSpace(reservation, eastParkingSpaces);
-                    break;
-                case "west":
-                    assignParkingSpace(reservation, westParkingSpaces);
-                    break;
-                default:
-                    reservationDataPanel.showInvalidSideMessage(); // Mostrar mensaje de que el lado seleccionado es inválido
-            }
-            */
+            handleAddReservation();
         }
-        
     }
 
     public class CancelReservationListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            String clientName = frm_client.getClientName();
-            ClientReservation reservation = findReservationByName(clientName);
-            if (reservation != null) {
-                cancelReservation(reservation);
-                reservation.getParkingSpace().setOccupied(false);
-                frm_client.updateView(); // Actualizar la vista después de cancelar la reserva
-            } else {
-                frm_client.showReservationNotFoundMessage(); // Mostrar mensaje de que la reserva no fue encontrada
-            }
+            handleCancelReservation();
         }
     }
 
-    private ClientReservation findReservationByName(String clientName) {
+    public class SearchReservationListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            handleSearchReservation();
+        }
+    }
+
+    private void handleAddReservation() {
+        String clientName = frm_client.getClientName();
+        String clientContact = frm_client.getClientContact();
+        String side = frm_client.getSelectedSide();
+        VehicleType vehicleType = VehicleType.valueOf(frm_client.getSelectedItemVehiculo().toUpperCase());
+        LocalDateTime reservationTime = LocalDateTime.now();
+        int duration = frm_client.getSelectedItemHorario().equals("Medio dia") ? 6 : (frm_client.getSelectedItemHorario().equals("Dia entero") ? 24 : 8);
+        // TariffType es un enum que debe ser definido según tu modelo
+        TariffType tariffType = TariffType.DAILY; // O el valor que corresponda según la selección del usuario
+
+        ClientReservation reservation = new ClientReservation(clientName, clientContact, vehicleType, reservationTime, duration, tariffType);
+
+        switch (side) {
+            case "Norte":
+                assignParkingSpace(reservation, northParkingSpaces);
+                break;
+            case "Sur":
+                assignParkingSpace(reservation, southParkingSpaces);
+                break;
+            case "Este":
+                assignParkingSpace(reservation, eastParkingSpaces);
+                break;
+            case "Oeste":
+                assignParkingSpace(reservation, westParkingSpaces);
+                break;
+            default:
+                frm_client.showInvalidSideMessage();
+                break;
+        }
+    }
+
+    private void handleCancelReservation() {
+        String clientContact = frm_client.getClientContact();
+        ClientReservation reservation = findReservationByContact(clientContact);
+        if (reservation != null) {
+            cancelReservation(reservation);
+            reservation.getParkingSpace().setOccupied(false);
+            frm_client.updateView();
+        } else {
+            frm_client.showReservationNotFoundMessage();
+        }
+    }
+
+    private void handleSearchReservation() {
+        String clientContact = frm_client.getClientContact();
+        searchReservation(clientContact);
+    }
+
+    private ClientReservation findReservationByContact(String clientContact) {
         for (ClientReservation reservation : activeReservations) {
-            if (reservation.getClientName().equals(clientName)) {
+            if (reservation.getClientContact().equals(clientContact)) {
                 return reservation;
             }
         }
