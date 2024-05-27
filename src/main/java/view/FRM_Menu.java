@@ -23,13 +23,15 @@ public class FRM_Menu extends javax.swing.JFrame {
     }
 
     public void escucharMenu(ActionListener manejador) {
-        this.jmiReporte.addActionListener(manejador);
-        this.jmiReservaciones.addActionListener(manejador);
+        this.btReportes.addActionListener(manejador);
+        this.btReservaciones.addActionListener(manejador);
+        this.btCerrarSesion.addActionListener(manejador);
     }
 
     public void escucharBotonesUser(ActionListener manejador) {
         this.btIniciarSesion.addActionListener(manejador);
-        this.btCerrarSesion.addActionListener(manejador);
+        this.btReportes.addActionListener(manejador);
+        this.btReservaciones.addActionListener(manejador);
     }
 
     public void setUsuario(User user) {
@@ -47,13 +49,15 @@ public class FRM_Menu extends javax.swing.JFrame {
     }
 
     public void esconderMenu() {
-        jmiReporte.setVisible(false);
-        jmiReservaciones.setVisible(false);
+        btReportes.setVisible(false);
+        btReservaciones.setVisible(false);
+        btCerrarSesion.setVisible(false);
     }
 
     public void mostrarMenu() {
-        jmiReporte.setVisible(true);
-        jmiReservaciones.setVisible(true);
+        btReportes.setVisible(true);
+        btReservaciones.setVisible(true);
+        btCerrarSesion.setVisible(true);
     }
 
     public void mostrarLogin() {
@@ -62,7 +66,6 @@ public class FRM_Menu extends javax.swing.JFrame {
         jtUsuario.setVisible(true);
         jtContraseña.setVisible(true);
         btIniciarSesion.setVisible(true);
-        btCerrarSesion.setVisible(true);
     }
 
     public void esconderLogin() {
@@ -71,7 +74,6 @@ public class FRM_Menu extends javax.swing.JFrame {
         jtUsuario.setVisible(false);
         jtContraseña.setVisible(false);
         btIniciarSesion.setVisible(false);
-        btCerrarSesion.setVisible(false);
     }
 
     /**
@@ -88,15 +90,12 @@ public class FRM_Menu extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jtContraseña = new javax.swing.JTextField();
         jtUsuario = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        jlTitulo = new javax.swing.JLabel();
         btIniciarSesion = new javax.swing.JButton();
         btCerrarSesion = new javax.swing.JButton();
         btReportes = new javax.swing.JButton();
         btReservaciones = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jmiReservaciones = new javax.swing.JMenu();
-        jmiReporte = new javax.swing.JMenuItem();
-        Reservaciones = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,14 +107,16 @@ public class FRM_Menu extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         jLabel2.setText("Contraseña");
 
-        jLabel3.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
-        jLabel3.setText("Inicio de sesion Parqueo Juarez");
+        jlTitulo.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
+        jlTitulo.setText("Inicio de sesion Parqueo Juarez");
 
         btIniciarSesion.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         btIniciarSesion.setText("Iniciar sesion");
         btIniciarSesion.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 255)));
 
+        btCerrarSesion.setFont(new java.awt.Font("Eras Medium ITC", 0, 18)); // NOI18N
         btCerrarSesion.setText("Cerrar sesion");
+        btCerrarSesion.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 0, 0)));
 
         btReportes.setFont(new java.awt.Font("Eras Medium ITC", 0, 18)); // NOI18N
         btReportes.setText("Reportes");
@@ -139,73 +140,63 @@ public class FRM_Menu extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btReservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(btReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(423, 423, 423))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(139, 139, 139)
-                        .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(208, 208, 208))
+                .addGap(0, 84, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(208, 208, 208))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(216, 216, 216))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(209, 209, 209)
+                .addComponent(btReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(btCerrarSesion))
+                        .addGap(204, 204, 204)
+                        .addComponent(btReservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(231, 231, 231)
-                        .addComponent(btIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(121, 121, 121)
+                        .addComponent(jlTitulo))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(215, 215, 215)
+                        .addComponent(btCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jlTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btReservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btCerrarSesion)
-                .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addComponent(btIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(175, 175, 175))
+                    .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(btIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addComponent(btCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(188, 188, 188))
         );
-
-        jmiReservaciones.setText("File");
-
-        jmiReporte.setText("Reporte");
-        jmiReservaciones.add(jmiReporte);
-
-        Reservaciones.setText("Reservaciones");
-        jmiReservaciones.add(Reservaciones);
-
-        jMenuBar1.add(jmiReservaciones);
 
         setJMenuBar(jMenuBar1);
 
@@ -217,7 +208,7 @@ public class FRM_Menu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 350, Short.MAX_VALUE)
         );
 
         pack();
@@ -240,6 +231,14 @@ public class FRM_Menu extends javax.swing.JFrame {
     public void addLogoutListener(MenuManager.LogoutListener logoutListener) {
         btCerrarSesion.addActionListener(logoutListener);
     }
+    
+    public void addReportesListener(MenuManager.ReportsListener reportesListener) {
+        btReportes.addActionListener(reportesListener);
+    }
+
+    public void addReservacionesListener(MenuManager.ReservationsListener reservacionesListener) {
+        btReservaciones.addActionListener(reservacionesListener);
+    }
 
     public String getUsername() {
         return jtUsuario.getText();
@@ -250,18 +249,15 @@ public class FRM_Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem Reservaciones;
     private javax.swing.JButton btCerrarSesion;
     private javax.swing.JButton btIniciarSesion;
     private javax.swing.JButton btReportes;
     private javax.swing.JButton btReservaciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JMenuItem jmiReporte;
-    private javax.swing.JMenu jmiReservaciones;
+    private javax.swing.JLabel jlTitulo;
     private javax.swing.JTextField jtContraseña;
     private javax.swing.JTextField jtUsuario;
     // End of variables declaration//GEN-END:variables

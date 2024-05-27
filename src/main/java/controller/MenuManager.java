@@ -1,7 +1,7 @@
 package controller;
 
 import model.User;
-import view.FRM_Menu;
+import view.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,11 +9,15 @@ public class MenuManager {
 
     private User loggedInUser;
     private FRM_Menu frmMenu;
+    private FRM_Client frmClient;
 
     public MenuManager(FRM_Menu frmMenu) {
+        this.frmClient = new FRM_Client();
         this.frmMenu = frmMenu;
         this.frmMenu.addLoginListener(new LoginListener());
         this.frmMenu.addLogoutListener(new LogoutListener());
+        this.frmMenu.addReportesListener(new ReportsListener());
+        this.frmMenu.addReservacionesListener(new ReservationsListener());
     }
 
     public boolean login(String username, String password) {
@@ -61,6 +65,25 @@ public class MenuManager {
         @Override
         public void actionPerformed(ActionEvent e) {
             logout();
+        }
+    }
+    
+    public class ReportsListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Lógica para mostrar reportes
+        }
+    }
+
+    public class ReservationsListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (frmClient == null) {
+                frmClient = new FRM_Client();
+                new ReservationManager(frmClient, MenuManager.this);
+            }
+            frmMenu.setVisible(false);
+            frmClient.setVisible(true);
         }
     }
 }
