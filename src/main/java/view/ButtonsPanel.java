@@ -61,12 +61,24 @@ public class ButtonsPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(0, 102, 102));
 
+        btAgregar.setBackground(new java.awt.Color(204, 204, 204));
+        btAgregar.setFont(new java.awt.Font("Eras Medium ITC", 0, 18)); // NOI18N
+        btAgregar.setForeground(new java.awt.Color(0, 0, 0));
         btAgregar.setText("Agregar");
 
+        btBuscar.setBackground(new java.awt.Color(204, 204, 204));
+        btBuscar.setFont(new java.awt.Font("Eras Medium ITC", 0, 18)); // NOI18N
+        btBuscar.setForeground(new java.awt.Color(0, 0, 0));
         btBuscar.setText("Buscar");
 
+        btEliminar.setBackground(new java.awt.Color(204, 204, 204));
+        btEliminar.setFont(new java.awt.Font("Eras Medium ITC", 0, 18)); // NOI18N
+        btEliminar.setForeground(new java.awt.Color(0, 0, 0));
         btEliminar.setText("Eliminar");
 
+        btSalir.setBackground(new java.awt.Color(204, 204, 204));
+        btSalir.setFont(new java.awt.Font("Eras Medium ITC", 0, 18)); // NOI18N
+        btSalir.setForeground(new java.awt.Color(0, 0, 0));
         btSalir.setText("Salir");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -74,15 +86,15 @@ public class ButtonsPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(16, 16, 16)
                 .addComponent(btAgregar)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(btBuscar)
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addComponent(btEliminar)
-                .addGap(28, 28, 28)
-                .addComponent(btSalir)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,7 +105,7 @@ public class ButtonsPanel extends javax.swing.JPanel {
                     .addComponent(btBuscar)
                     .addComponent(btEliminar)
                     .addComponent(btSalir))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
