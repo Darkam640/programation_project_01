@@ -5,17 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import model.*;
 import view.FRM_Client;
 
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-
 
 public class ReservationManager {
 
@@ -25,26 +22,30 @@ public class ReservationManager {
     private List<ParkingSpace> southParkingSpaces;
     private List<ParkingSpace> eastParkingSpaces;
     private List<ParkingSpace> westParkingSpaces;
-    private FRM_Client frm_client;
+    private FRM_Client frmClient;
     private MenuManager menuManager;
 
-    private static final String ACTIVE_RESERVATIONS_JSON_FILE_PATH = "active_reservations.json";
-    private static final String CANCELLED_RESERVATIONS_JSON_FILE_PATH = "cancelled_reservations.json";
+    private static final String ACTIVE_RESERVATIONS_JSON_FILE_PATH = "src/main/resources/active_reservations.json";
+    private static final String CANCELLED_RESERVATIONS_JSON_FILE_PATH = "src/main/resources/cancelled_reservations.json";
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public ReservationManager(FRM_Client frm_client, MenuManager menuManager) {
+    public ReservationManager(FRM_Client frmClient, MenuManager menuManager) {
         this.activeReservations = loadReservationsFromJSON(ACTIVE_RESERVATIONS_JSON_FILE_PATH);
         this.cancelledReservations = loadReservationsFromJSON(CANCELLED_RESERVATIONS_JSON_FILE_PATH);
         this.northParkingSpaces = initializeParkingSpaces("north");
         this.southParkingSpaces = initializeParkingSpaces("south");
         this.eastParkingSpaces = initializeParkingSpaces("east");
         this.westParkingSpaces = initializeParkingSpaces("west");
-        this.frm_client = frm_client;
+        this.frmClient = frmClient;
         this.menuManager = menuManager;
-        this.frm_client.addAddReservationListener(new AddReservationListener());
-        this.frm_client.addCancelReservationListener(new CancelReservationListener());
-        this.frm_client.addSearchReservationListener(new SearchReservationListener());
-        this.frm_client.addBackButtonListener(new BackMenuListener());
+        initializeListeners();
+    }
+
+    private void initializeListeners() {
+        this.frmClient.addAddReservationListener(new AddReservationListener());
+        this.frmClient.addCancelReservationListener(new CancelReservationListener());
+        this.frmClient.addSearchReservationListener(new SearchReservationListener());
+        this.frmClient.addBackButtonListener(new BackMenuListener());
     }
 
     public void addReservation(ClientReservation reservation) {
@@ -52,9 +53,9 @@ public class ReservationManager {
         if (findReservationByContact(clientContact) == null) {
             activeReservations.add(reservation);
             saveReservationsToJSON(activeReservations, ACTIVE_RESERVATIONS_JSON_FILE_PATH);
-            frm_client.updateView();
+            frmClient.updateView();
         } else {
-            frm_client.showReservationExistsMessage();
+            frmClient.showReservationExistsMessage();
         }
     }
 
@@ -63,20 +64,18 @@ public class ReservationManager {
         cancelledReservations.add(reservation);
         saveReservationsToJSON(activeReservations, ACTIVE_RESERVATIONS_JSON_FILE_PATH);
         saveReservationsToJSON(cancelledReservations, CANCELLED_RESERVATIONS_JSON_FILE_PATH);
-        frm_client.updateView();
+        reservation.getParkingSpace().setOccupied(false);
+        frmClient.updateView();
     }
 
     public void searchReservation(String clientContact) {
         ClientReservation reservation = findReservationByContact(clientContact);
         if (reservation != null) {
-            String clientName = reservation.getClientName();
-            String selectedSide = frm_client.getSelectedSide();
-            String selectedItemVehiculo = frm_client.getSelectedItemVehiculo();
-            String selectedItemHorario = frm_client.getSelectedItemHorario();
-
-            frm_client.showReservationDetails(clientName, clientContact, selectedSide, selectedItemVehiculo, selectedItemHorario);
+            frmClient.showReservationDetails(reservation.getClientName(), reservation.getClientContact(),
+                    reservation.getParkingSpace().getSide(), reservation.getVehicleType().toString(),
+                    reservation.getDurationHours());
         } else {
-            frm_client.showReservationNotFoundMessage();
+            frmClient.showReservationNotFoundMessage();
         }
     }
 
@@ -148,15 +147,69 @@ public class ReservationManager {
 
         if (!availableSpaces.isEmpty()) {
             Random random = new Random();
-            int index = random.nextInt(availableSpaces.size());
-            ParkingSpace space = availableSpaces.get(index);
+            ParkingSpace space = availableSpaces.get(random.nextInt(availableSpaces.size()));
             reservation.setParkingSpace(space);
             space.setOccupied(true);
             addReservation(reservation);
-            frm_client.updateView();
         } else {
-            frm_client.showNoAvailableSpaceMessage();
+            frmClient.showNoAvailableSpaceMessage();
         }
+    }
+
+    private ClientReservation findReservationByContact(String clientContact) {
+        return activeReservations.stream()
+                .filter(reservation -> reservation.getClientContact().equals(clientContact))
+                .findFirst()
+                .orElse(null);
+    }
+
+    private void handleAddReservation() {
+        String clientName = frmClient.getClientName();
+        String clientContact = frmClient.getClientContact();
+        String side = frmClient.getSelectedSide();
+
+        String translatedVehicleType = frmClient.translateVehicleType(frmClient.getSelectedItemVehiculo());
+
+        String durationHours = frmClient.getSelectedItemHorario().equals("Medio dia") ? "6" : (frmClient.getSelectedItemHorario().equals("Dia entero") ? "24" : "8");
+
+        ClientReservation reservation = new ClientReservation(clientName, clientContact, VehicleType.valueOf(translatedVehicleType), durationHours);
+
+        switch (side) {
+            case "Norte":
+                assignParkingSpace(reservation, northParkingSpaces);
+                break;
+            case "Sur":
+                assignParkingSpace(reservation, southParkingSpaces);
+                break;
+            case "Este":
+                assignParkingSpace(reservation, eastParkingSpaces);
+                break;
+            case "Oeste":
+                assignParkingSpace(reservation, westParkingSpaces);
+                break;
+            default:
+                frmClient.showInvalidSideMessage();
+                break;
+        }
+    }
+
+    private void handleCancelReservation() {
+        String clientContact = frmClient.getClientContact();
+        ClientReservation reservation = findReservationByContact(clientContact);
+        if (reservation != null) {
+            cancelReservation(reservation);
+        } else {
+            frmClient.showReservationNotFoundMessage();
+        }
+    }
+
+    private void handleBackMenu() {
+        menuManager.showMainMenu();
+    }
+
+    private void handleSearchReservation() {
+        String clientContact = frmClient.getClientContact();
+        searchReservation(clientContact);
     }
 
     public class AddReservationListener implements ActionListener {
@@ -189,65 +242,5 @@ public class ReservationManager {
         public void actionPerformed(ActionEvent e) {
             handleBackMenu();
         }
-    }
-
-    private void handleAddReservation() {
-        String clientName = frm_client.getClientName();
-        String clientContact = frm_client.getClientContact();
-        String side = frm_client.getSelectedSide();
-        VehicleType vehicleType = VehicleType.valueOf(frm_client.getSelectedItemVehiculo().toUpperCase());
-        LocalDateTime reservationTime = LocalDateTime.now();
-        int duration = frm_client.getSelectedItemHorario().equals("Medio dia") ? 6 : (frm_client.getSelectedItemHorario().equals("Dia entero") ? 24 : 8);
-        TariffType tariffType = TariffType.DAILY;
-
-        ClientReservation reservation = new ClientReservation(clientName, clientContact, vehicleType, reservationTime, duration, tariffType);
-
-        switch (side) {
-            case "Norte":
-                assignParkingSpace(reservation, northParkingSpaces);
-                break;
-            case "Sur":
-                assignParkingSpace(reservation, southParkingSpaces);
-                break;
-            case "Este":
-                assignParkingSpace(reservation, eastParkingSpaces);
-                break;
-            case "Oeste":
-                assignParkingSpace(reservation, westParkingSpaces);
-                break;
-            default:
-                frm_client.showInvalidSideMessage();
-                break;
-        }
-    }
-
-    private void handleCancelReservation() {
-        String clientContact = frm_client.getClientContact();
-        ClientReservation reservation = findReservationByContact(clientContact);
-        if (reservation != null) {
-            cancelReservation(reservation);
-            reservation.getParkingSpace().setOccupied(false);
-            frm_client.updateView();
-        } else {
-            frm_client.showReservationNotFoundMessage();
-        }
-    }
-
-    private void handleBackMenu() {
-        menuManager.showMainMenu();
-    }
-
-    private void handleSearchReservation() {
-        String clientContact = frm_client.getClientContact();
-        searchReservation(clientContact);
-    }
-
-    private ClientReservation findReservationByContact(String clientContact) {
-        for (ClientReservation reservation : activeReservations) {
-            if (reservation.getClientContact().equals(clientContact)) {
-                return reservation;
-            }
-        }
-        return null;
     }
 }
