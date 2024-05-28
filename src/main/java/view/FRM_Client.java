@@ -67,6 +67,16 @@ public class FRM_Client extends javax.swing.JFrame {
         this.cbTipoVehiculo.addItem("Vehiculo");
         this.cbTipoVehiculo.addItem("Motocicleta");
     }
+    public String translateVehicleType(String selectedItem) {
+        switch (selectedItem) {
+            case "Vehiculo":
+                return "CAR";
+            case "Motocicleta":
+                return "MOTORCYCLE";
+            default:
+                return null;
+        }
+    }
 
     public String getSelectedItemEstacionamiento() {
         return (String) this.cbEstacionamiento.getSelectedItem();
