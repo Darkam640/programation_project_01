@@ -25,5 +25,6 @@ public enum VehicleType {
     public double getNightPrice() {
         return nightPrice;
     }
+    
 }
 

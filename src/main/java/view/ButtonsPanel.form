@@ -44,7 +44,7 @@
                   <Component id="btEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btSalir" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="28" max="32767" attributes="0"/>
+              <EmptySpace pref="34" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -52,21 +52,33 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="btAgregar">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Eras Medium ITC" size="18" style="0"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Agregar"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btBuscar">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Eras Medium ITC" size="18" style="0"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Buscar"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btEliminar">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Eras Medium ITC" size="18" style="0"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Eliminar"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btSalir">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Eras Medium ITC" size="18" style="0"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Salir"/>
       </Properties>
     </Component>

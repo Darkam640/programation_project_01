@@ -61,12 +61,16 @@ public class ButtonsPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(0, 102, 102));
 
+        btAgregar.setFont(new java.awt.Font("Eras Medium ITC", 0, 18)); // NOI18N
         btAgregar.setText("Agregar");
 
+        btBuscar.setFont(new java.awt.Font("Eras Medium ITC", 0, 18)); // NOI18N
         btBuscar.setText("Buscar");
 
+        btEliminar.setFont(new java.awt.Font("Eras Medium ITC", 0, 18)); // NOI18N
         btEliminar.setText("Eliminar");
 
+        btSalir.setFont(new java.awt.Font("Eras Medium ITC", 0, 18)); // NOI18N
         btSalir.setText("Salir");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -93,7 +97,7 @@ public class ButtonsPanel extends javax.swing.JPanel {
                     .addComponent(btBuscar)
                     .addComponent(btEliminar)
                     .addComponent(btSalir))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
