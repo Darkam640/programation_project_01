@@ -65,7 +65,7 @@ public class ReservationManager {
         saveReservationsToJSON(activeReservations, ACTIVE_RESERVATIONS_JSON_FILE_PATH);
         saveReservationsToJSON(cancelledReservations, CANCELLED_RESERVATIONS_JSON_FILE_PATH);
         reservation.getParkingSpace().setOccupied(false);
-        frmClient.updateView();
+        frmClient.limpiar();
     }
 
     public void searchReservation(String clientContact) {

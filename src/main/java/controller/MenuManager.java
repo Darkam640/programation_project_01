@@ -59,6 +59,9 @@ public class MenuManager {
     public void showMainMenu() {
         frmMenu.esconderLogin();
         frmMenu.mostrarMenu();
+        frmClient.setVisible(false);
+        frmMenu.setVisible(true);
+        frmClient.limpiar();
     }
 
     public void logout() {
