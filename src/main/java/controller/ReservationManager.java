@@ -243,4 +243,18 @@ public class ReservationManager {
             handleBackMenu();
         }
     }
+    
+        public String[][] matrizReservaciones() {
+            String[][] matrizReservaciones = new String[this.activeReservations.size()][ClientReservation.CLIENT_TITLE.length];
+
+       
+        for (int f = 0; f < matrizReservaciones.length; f++) {
+            matrizReservaciones[f][0] = activeReservations.get(f).getClientName();
+            matrizReservaciones[f][1] = activeReservations.get(f).getClientContact()+ "";
+            matrizReservaciones[f][2] = activeReservations.get(f).getVehicleType().toString();
+            matrizReservaciones[f][3] = activeReservations.get(f).getDurationHours();        
+           
+        }
+        return matrizReservaciones;
+    }
 }

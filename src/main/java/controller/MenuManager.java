@@ -5,16 +5,21 @@ import view.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import model.ClientReservation;
 
 public class MenuManager {
 
     private User loggedInUser;
     private FRM_Menu frmMenu;
     private FRM_Client frmClient;
+    private FRM_Report frmReport;
+    private ReservationManager register;
+     private ClientReservation client;
 
     public MenuManager(FRM_Menu frmMenu) {
         this.frmMenu = frmMenu;
         initializeListeners();
+        this.frmReport = new FRM_Report();
     }
     
     private void initializeListeners() {
@@ -106,14 +111,29 @@ public class MenuManager {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            // Lógica para mostrar reportes
+            generateReport();
+                         // this.frmReport.setDataTable(register.matrizReservaciones(),client.CLIENT_TITLE);
+               // this.frmReport.setVisible(true);     
         }
     }
+    
+    
+    public void actionPerformed(ActionEvent e){
+        switch(e.getActionCommand().toString())
+        {
+            case "Reportes ":
+                this.frmReport.setDataTable(register.matrizReservaciones(),client.CLIENT_TITLE);
+                this.frmReport.setVisible(true);     
+                break;
+        }
+    }    
 
     public class ReservationsListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             showClientForm();
         }
+        
+        
     }
 }
