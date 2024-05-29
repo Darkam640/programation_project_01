@@ -4,6 +4,7 @@ import model.User;
 import view.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JOptionPane;
 import model.ClientReservation;
 
@@ -14,14 +15,15 @@ public class MenuManager {
     private FRM_Client frmClient;
     private FRM_Report frmReport;
     private ReservationManager register;
-     private ClientReservation client;
+    private ClientReservation client;
+    private ReportManager reportManager;
 
     public MenuManager(FRM_Menu frmMenu) {
         this.frmMenu = frmMenu;
+        this.frmReport = frmReport;
         initializeListeners();
-        this.frmReport = new FRM_Report();
     }
-    
+
     private void initializeListeners() {
         this.frmMenu.addLoginListener(new LoginListener());
         this.frmMenu.addLogoutListener(new LogoutListener());
@@ -44,6 +46,12 @@ public class MenuManager {
         }
     }
 
+    public void showReport() {
+        this.register = new ReservationManager(null, null);
+        this.reportManager = new ReportManager(frmReport, register);
+        reportManager.showReport();
+    }
+
     private boolean isInputValid(String username, String password) {
         return username != null && !username.trim().isEmpty() && password != null && !password.trim().isEmpty();
     }
@@ -57,9 +65,7 @@ public class MenuManager {
         JOptionPane.showMessageDialog(null, message);
     }
 
-    public void generateReport() {
-        // Implement the logic to generate a report
-    }
+
 
     public void showMainMenu() {
         frmMenu.esconderLogin();
@@ -89,7 +95,7 @@ public class MenuManager {
             }
         }
     }
-    
+
     private void showClientForm() {
         if (frmClient == null) {
             frmClient = new FRM_Client();
@@ -111,29 +117,17 @@ public class MenuManager {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            generateReport();
-                         // this.frmReport.setDataTable(register.matrizReservaciones(),client.CLIENT_TITLE);
-               // this.frmReport.setVisible(true);     
+            showReport();
         }
     }
-    
-    
-    public void actionPerformed(ActionEvent e){
-        switch(e.getActionCommand().toString())
-        {
-            case "Reportes ":
-                this.frmReport.setDataTable(register.matrizReservaciones(),client.CLIENT_TITLE);
-                this.frmReport.setVisible(true);     
-                break;
-        }
-    }    
+
 
     public class ReservationsListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             showClientForm();
         }
-        
-        
+
     }
 }

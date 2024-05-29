@@ -41,7 +41,7 @@ public class ReservationManager {
         initializeListeners();
     }
 
-    private void initializeListeners() {
+    public void initializeListeners() {
         this.frmClient.addAddReservationListener(new AddReservationListener());
         this.frmClient.addCancelReservationListener(new CancelReservationListener());
         this.frmClient.addSearchReservationListener(new SearchReservationListener());
@@ -85,26 +85,6 @@ public class ReservationManager {
 
     public List<ClientReservation> getCancelledReservations() {
         return cancelledReservations;
-    }
-
-    public List<ClientReservation> getDailyReservations() {
-        return activeReservations;
-    }
-
-    public boolean isNorthParkingSpaceAvailable() {
-        return checkParkingSpaceAvailability(northParkingSpaces);
-    }
-
-    public boolean isSouthParkingSpaceAvailable() {
-        return checkParkingSpaceAvailability(southParkingSpaces);
-    }
-
-    public boolean isEastParkingSpaceAvailable() {
-        return checkParkingSpaceAvailability(eastParkingSpaces);
-    }
-
-    public boolean isWestParkingSpaceAvailable() {
-        return checkParkingSpaceAvailability(westParkingSpaces);
     }
 
     private boolean checkParkingSpaceAvailability(List<ParkingSpace> parkingSpaces) {
@@ -163,6 +143,38 @@ public class ReservationManager {
                 .orElse(null);
     }
 
+    public class AddReservationListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            handleAddReservation();
+        }
+    }
+
+    public class CancelReservationListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            handleCancelReservation();
+        }
+    }
+
+    public class SearchReservationListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            handleSearchReservation();
+        }
+    }
+
+    public class BackMenuListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            handleBackMenu();
+        }
+    }
+
     private void handleAddReservation() {
         String clientName = frmClient.getClientName();
         String clientContact = frmClient.getClientContact();
@@ -203,58 +215,30 @@ public class ReservationManager {
         }
     }
 
-    private void handleBackMenu() {
-        menuManager.showMainMenu();
-    }
-
     private void handleSearchReservation() {
         String clientContact = frmClient.getClientContact();
         searchReservation(clientContact);
     }
 
-    public class AddReservationListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            handleAddReservation();
-        }
+    private void handleBackMenu() {
+        menuManager.showMainMenu();
     }
 
-    public class CancelReservationListener implements ActionListener {
+    public String[][] matrizReservaciones() {
+        List<ClientReservation> reservacionesActivas = loadReservationsFromJSON(ACTIVE_RESERVATIONS_JSON_FILE_PATH);
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            handleCancelReservation();
+        String[][] matriz = new String[reservacionesActivas.size()][5];
+
+        for (int i = 0; i < reservacionesActivas.size(); i++) {
+            ClientReservation reserva = reservacionesActivas.get(i);
+            matriz[i][0] = reserva.getClientName();
+            matriz[i][1] = reserva.getClientContact();
+            matriz[i][2] = reserva.getParkingSpace().getSide();
+            matriz[i][3] = reserva.getVehicleType().toString();
+            matriz[i][4] = reserva.getDurationHours();
         }
+
+        return matriz;
     }
 
-    public class SearchReservationListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            handleSearchReservation();
-        }
-    }
-
-    public class BackMenuListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            handleBackMenu();
-        }
-    }
-    
-        public String[][] matrizReservaciones() {
-            String[][] matrizReservaciones = new String[this.activeReservations.size()][ClientReservation.CLIENT_TITLE.length];
-
-       
-        for (int f = 0; f < matrizReservaciones.length; f++) {
-            matrizReservaciones[f][0] = activeReservations.get(f).getClientName();
-            matrizReservaciones[f][1] = activeReservations.get(f).getClientContact()+ "";
-            matrizReservaciones[f][2] = activeReservations.get(f).getVehicleType().toString();
-            matrizReservaciones[f][3] = activeReservations.get(f).getDurationHours();        
-           
-        }
-        return matrizReservaciones;
-    }
 }
