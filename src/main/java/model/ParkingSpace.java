@@ -12,6 +12,11 @@ public class ParkingSpace {
         this.occupied = occupied;
     }
 
+    public ParkingSpace() {
+    }
+    
+    
+
     // Getters y setters
     public int getId() {
         return id;

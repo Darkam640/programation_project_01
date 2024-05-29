@@ -103,7 +103,7 @@ public class FRM_Client extends javax.swing.JFrame {
     }
 
     public void setClientContact(String contact) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.jtContacto.setText(contact);
     }
 
     public String getClientContact() {
