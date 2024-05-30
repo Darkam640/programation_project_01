@@ -68,7 +68,7 @@ public class FRM_Client extends javax.swing.JFrame {
         this.cbTipoVehiculo.addItem("Vehiculo");
         this.cbTipoVehiculo.addItem("Motocicleta");
     }
-    
+
     public void setTotalPrice(double price) {
         jTextField1.setText(String.valueOf(price));
     }
@@ -128,10 +128,10 @@ public class FRM_Client extends javax.swing.JFrame {
     public void showReservationDetails(ReservationDetailsDTO reservation) {
         jtNombre.setText(reservation.getClientName());
         jtContacto.setText(reservation.getClientContact());
-        
+
         cbEstacionamiento.setSelectedItem(reservation.getParkingSpaceSide());
         cbTipoVehiculo.setSelectedItem(reservation.getVehicleType());
-        
+
         String durationHours = reservation.getDurationHours();
         switch (durationHours) {
             case "6":
@@ -147,7 +147,7 @@ public class FRM_Client extends javax.swing.JFrame {
                 cbHorario.setSelectedItem(null);
                 break;
         }
-        
+
         jTextField1.setText(String.valueOf(reservation.getTotalPrice()));
     }
 
