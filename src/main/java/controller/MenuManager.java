@@ -70,11 +70,9 @@ public class MenuManager {
     public void showMainMenu() {
         frmMenu.esconderLogin();
         frmMenu.mostrarMenu();
-        if (frmClient != null) {
-            frmClient.setVisible(false);
-            frmClient.limpiar();
-        }
+        frmClient.setVisible(false);
         frmMenu.setVisible(true);
+        frmClient.limpiar();
     }
 
     public void logout() {
@@ -92,6 +90,9 @@ public class MenuManager {
             String password = frmMenu.getPassword();
             if (login(username, password)) {
                 showMainMenu();
+            } else {
+                // Mostrar error de inicio de sesión
+                JOptionPane.showMessageDialog(null, "failed. Please try again.");
             }
         }
     }

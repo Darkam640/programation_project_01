@@ -1,20 +1,17 @@
 package view;
 
-import controller.*;
+import controller.ReservationDetailsDTO;
+import controller.ReservationManager;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Lenovo
- */
 public class FRM_Client extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FRM_Client
-     */
+    private ReservationManager reservationManager;
+
     public FRM_Client() {
+        this.reservationManager = reservationManager;
         initComponents();
         cargarComboEstacionamiento();
         cargarComboHorario();
@@ -48,6 +45,10 @@ public class FRM_Client extends javax.swing.JFrame {
     public void limpiar() {
         this.jtNombre.setText("");
         this.jtContacto.setText("");
+        this.cbEstacionamiento.setSelectedItem(null);
+        this.cbTipoVehiculo.setSelectedItem(null);
+        this.cbHorario.setSelectedItem(null);
+        this.jTextField1.setText("");
     }
 
     public void cargarComboEstacionamiento() {
@@ -67,15 +68,9 @@ public class FRM_Client extends javax.swing.JFrame {
         this.cbTipoVehiculo.addItem("Vehiculo");
         this.cbTipoVehiculo.addItem("Motocicleta");
     }
-    public String translateVehicleType(String selectedItem) {
-        switch (selectedItem) {
-            case "Vehiculo":
-                return "CAR";
-            case "Motocicleta":
-                return "MOTORCYCLE";
-            default:
-                return null;
-        }
+    
+    public void setTotalPrice(double price) {
+        jTextField1.setText(String.valueOf(price));
     }
 
     public String getSelectedItemEstacionamiento() {
@@ -102,10 +97,6 @@ public class FRM_Client extends javax.swing.JFrame {
         return this.jtNombre.getText();
     }
 
-    public void setClientContact(String contact) {
-        this.jtContacto.setText(contact);
-    }
-
     public String getClientContact() {
         return this.jtContacto.getText();
     }
@@ -119,7 +110,7 @@ public class FRM_Client extends javax.swing.JFrame {
     }
 
     public void updateView() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // Implementación de actualización de la vista
     }
 
     public void showNoAvailableSpaceMessage() {
@@ -134,20 +125,38 @@ public class FRM_Client extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "El lado seleccionado es invalido.");
     }
 
-    public void showReservationDetails(String clientName, String clientContact, String selectedSide, String selectedItemVehiculo, String selectedItemHorario) {
-        jtNombre.setText(clientName);
-        jtContacto.setText(clientContact);
-        cbEstacionamiento.setSelectedItem(selectedSide);
-        cbTipoVehiculo.setSelectedItem(selectedItemVehiculo);
-        cbHorario.setSelectedItem(selectedItemHorario);
+    public void showReservationDetails(ReservationDetailsDTO reservation) {
+        jtNombre.setText(reservation.getClientName());
+        jtContacto.setText(reservation.getClientContact());
+        
+        cbEstacionamiento.setSelectedItem(reservation.getParkingSpaceSide());
+        cbTipoVehiculo.setSelectedItem(reservation.getVehicleType());
+        
+        String durationHours = reservation.getDurationHours();
+        switch (durationHours) {
+            case "6":
+                cbHorario.setSelectedItem("Medio dia");
+                break;
+            case "24":
+                cbHorario.setSelectedItem("Dia entero");
+                break;
+            case "8":
+                cbHorario.setSelectedItem("Noche");
+                break;
+            default:
+                cbHorario.setSelectedItem(null);
+                break;
+        }
+        
+        jTextField1.setText(String.valueOf(reservation.getTotalPrice()));
     }
-    
-    public void addSearchReservationListener(ReservationManager.SearchReservationListener searchReservationListener) {
+
+    public void addSearchReservationListener(ActionListener searchReservationListener) {
         this.buttonsPanel1.getFindButton().addActionListener(searchReservationListener);
     }
-    
-    public void addBackButtonListener(ReservationManager.BackMenuListener backMenulistener) {
-        this.buttonsPanel1.getExitButton().addActionListener(backMenulistener);
+
+    public void addBackButtonListener(ActionListener backButtonListener) {
+        this.buttonsPanel1.getExitButton().addActionListener(backButtonListener);
     }
 
 
@@ -205,6 +214,11 @@ public class FRM_Client extends javax.swing.JFrame {
         jTextField1.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(0, 0, 0));
         jTextField1.setText(" ");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
@@ -312,6 +326,10 @@ public class FRM_Client extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel1ComponentHidden
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private view.ButtonsPanel buttonsPanel1;
@@ -330,7 +348,5 @@ public class FRM_Client extends javax.swing.JFrame {
     private javax.swing.JTextField jtContacto;
     private javax.swing.JTextField jtNombre;
     // End of variables declaration//GEN-END:variables
-
-    
 
 }

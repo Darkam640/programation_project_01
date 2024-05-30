@@ -71,11 +71,82 @@ public class ReservationManager {
     public void searchReservation(String clientContact) {
         ClientReservation reservation = findReservationByContact(clientContact);
         if (reservation != null) {
-            frmClient.showReservationDetails(reservation.getClientName(), reservation.getClientContact(),
-                    reservation.getParkingSpace().getSide(), reservation.getVehicleType().toString(),
-                    reservation.getDurationHours());
+            ReservationDetailsDTO reservationDTO = convertToDTO(reservation);
+            frmClient.showReservationDetails(reservationDTO);
         } else {
             frmClient.showReservationNotFoundMessage();
+        }
+    }
+
+    private ReservationDetailsDTO convertToDTO(ClientReservation reservation) {
+        String clientName = reservation.getClientName();
+        String clientContact = reservation.getClientContact();
+        String vehicleType = translateVehicleTypeToSpanish(reservation.getVehicleType().getDisplayName());
+        String parkingSpaceSide = translateParkingSpaceSideToSpanish(reservation.getParkingSpace().getSide());
+        String durationHours = reservation.getDurationHours();
+        double totalPrice = calculatePrice(reservation.getVehicleType(), durationHours);
+        return new ReservationDetailsDTO(clientName, clientContact, vehicleType, parkingSpaceSide, durationHours, totalPrice);
+    }
+
+    private double calculatePrice(VehicleType vehicleType, String durationHours) {
+        double price = 0.0;
+        switch (durationHours) {
+            case "6":
+                price = vehicleType.getHalfDayPrice();
+                break;
+            case "24":
+                price = vehicleType.getDayPrice();
+                break;
+            case "8":
+                price = vehicleType.getNightPrice();
+                break;
+        }
+        return price;
+    }
+
+    public String translateVehicleType(String selectedItem) {
+        if (selectedItem == null) {
+            return null;
+        }
+        switch (selectedItem) {
+            case "Vehiculo":
+                return "CAR";
+            case "Motocicleta":
+                return "MOTORCYCLE";
+            default:
+                return null;
+        }
+    }
+
+    public String translateVehicleTypeToSpanish(String vehicleType) {
+        if (vehicleType == null) {
+            return null;
+        }
+        switch (vehicleType) {
+            case "Car":
+                return "Vehiculo";
+            case "Motorcycle":
+                return "Motocicleta";
+            default:
+                return null;
+        }
+    }
+
+    public String translateParkingSpaceSideToSpanish(String side) {
+        if (side == null) {
+            return null;
+        }
+        switch (side) {
+            case "north":
+                return "Norte";
+            case "south":
+                return "Sur";
+            case "east":
+                return "Este";
+            case "west":
+                return "Oeste";
+            default:
+                return null;
         }
     }
 
@@ -178,11 +249,22 @@ public class ReservationManager {
     private void handleAddReservation() {
         String clientName = frmClient.getClientName();
         String clientContact = frmClient.getClientContact();
+
+        if (clientName == null || clientName.isEmpty() || clientContact == null || clientContact.isEmpty()) {
+            frmClient.mensaje("El nombre y el contacto del cliente no pueden estar vacíos.");
+            return;
+        }
+
         String side = frmClient.getSelectedSide();
+        String translatedVehicleType = translateVehicleType(frmClient.getSelectedItemVehiculo());
 
-        String translatedVehicleType = frmClient.translateVehicleType(frmClient.getSelectedItemVehiculo());
+        if (translatedVehicleType == null) {
+            frmClient.showInvalidSideMessage();
+            return;
+        }
 
-        String durationHours = frmClient.getSelectedItemHorario().equals("Medio dia") ? "6" : (frmClient.getSelectedItemHorario().equals("Dia entero") ? "24" : "8");
+        String durationHours = frmClient.getSelectedItemHorario().equals("Medio dia") ? "6" :
+                (frmClient.getSelectedItemHorario().equals("Dia entero") ? "24" : "8");
 
         ClientReservation reservation = new ClientReservation(clientName, clientContact, VehicleType.valueOf(translatedVehicleType), durationHours);
 
@@ -201,8 +283,11 @@ public class ReservationManager {
                 break;
             default:
                 frmClient.showInvalidSideMessage();
-                break;
+                return;
         }
+
+        double price = calculatePrice(VehicleType.valueOf(translatedVehicleType), durationHours);
+        frmClient.setTotalPrice(price);
     }
 
     private void handleCancelReservation() {
