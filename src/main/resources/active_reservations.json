@@ -1,1 +1,1 @@
-[]
+[{"clientName":"Dante","clientContact":"123","vehicleType":"CAR","parkingSpace":{"id":6,"side":"east","occupied":true},"durationHours":"24"},{"clientName":"Mois","clientContact":"2345","vehicleType":"MOTORCYCLE","parkingSpace":{"id":10,"side":"west","occupied":true},"durationHours":"8"},{"clientName":"Dante","clientContact":"54321","vehicleType":"MOTORCYCLE","parkingSpace":{"id":2,"side":"west","occupied":true},"durationHours":"24"}]

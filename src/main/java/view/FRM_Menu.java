@@ -5,6 +5,7 @@
 package view;
 
 import controller.MenuManager;
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import model.User;
 
@@ -52,12 +53,15 @@ public class FRM_Menu extends javax.swing.JFrame {
         btReportes.setVisible(false);
         btReservaciones.setVisible(false);
         btCerrarSesion.setVisible(false);
+        jlTitulo.setText("Inicio de sesion parqueo Juarez");
     }
 
     public void mostrarMenu() {
         btReportes.setVisible(true);
         btReservaciones.setVisible(true);
         btCerrarSesion.setVisible(true);
+        jlTitulo.setText("Menu principal parqueo Juarez");
+        jPanel2.setBackground(new java.awt.Color(73, 104, 136));
     }
 
     public void mostrarLogin() {
@@ -66,6 +70,7 @@ public class FRM_Menu extends javax.swing.JFrame {
         jtUsuario.setVisible(true);
         jtContraseña.setVisible(true);
         btIniciarSesion.setVisible(true);
+        jPanel2.setBackground(new java.awt.Color(0, 102, 102));
     }
 
     public void esconderLogin() {
@@ -88,112 +93,82 @@ public class FRM_Menu extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jtContraseña = new javax.swing.JTextField();
         jtUsuario = new javax.swing.JTextField();
         jlTitulo = new javax.swing.JLabel();
         btIniciarSesion = new javax.swing.JButton();
         btCerrarSesion = new javax.swing.JButton();
         btReportes = new javax.swing.JButton();
         btReservaciones = new javax.swing.JButton();
+        jtContraseña = new javax.swing.JPasswordField();
         jMenuBar1 = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Lemon", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Usuario");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 110, 50));
 
-        jLabel2.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Lemon", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Contraseña");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 130, 50));
 
-        jlTitulo.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
+        jtUsuario.setFont(new java.awt.Font("Doppio One", 0, 18)); // NOI18N
+        jPanel2.add(jtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, 180, -1));
+
+        jlTitulo.setFont(new java.awt.Font("Castellar", 3, 24)); // NOI18N
+        jlTitulo.setForeground(new java.awt.Color(255, 255, 255));
         jlTitulo.setText("Inicio de sesion Parqueo Juarez");
+        jPanel2.add(jlTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 520, 47));
 
-        btIniciarSesion.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        btIniciarSesion.setFont(new java.awt.Font("Ubuntu Mono", 3, 18)); // NOI18N
         btIniciarSesion.setText("Iniciar sesion");
         btIniciarSesion.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 255)));
+        jPanel2.add(btIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 150, 40));
 
         btCerrarSesion.setBackground(new java.awt.Color(0, 0, 0));
-        btCerrarSesion.setFont(new java.awt.Font("Eras Medium ITC", 0, 18)); // NOI18N
+        btCerrarSesion.setFont(new java.awt.Font("Ubuntu Mono", 3, 24)); // NOI18N
+        btCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
         btCerrarSesion.setText("Cerrar sesion");
         btCerrarSesion.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(102, 0, 0)));
         btCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel2.add(btCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, 190, 50));
 
-        btReportes.setFont(new java.awt.Font("Eras Medium ITC", 0, 18)); // NOI18N
+        btReportes.setBackground(new java.awt.Color(0, 0, 0));
+        btReportes.setFont(new java.awt.Font("Ubuntu Mono", 3, 24)); // NOI18N
+        btReportes.setForeground(new java.awt.Color(255, 255, 255));
         btReportes.setText("Reportes");
-        btReportes.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 0, 51)));
+        btReportes.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(102, 255, 255)));
         btReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btReportesActionPerformed(evt);
             }
         });
+        jPanel2.add(btReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 190, 50));
 
-        btReservaciones.setFont(new java.awt.Font("Eras Medium ITC", 0, 18)); // NOI18N
+        btReservaciones.setBackground(new java.awt.Color(0, 0, 0));
+        btReservaciones.setFont(new java.awt.Font("Ubuntu Mono", 3, 24)); // NOI18N
+        btReservaciones.setForeground(new java.awt.Color(255, 255, 255));
         btReservaciones.setText("Reservaciones");
-        btReservaciones.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 0, 51)));
+        btReservaciones.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 255, 51)));
         btReservaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btReservacionesActionPerformed(evt);
             }
         });
+        jPanel2.add(btReservaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 190, 50));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 84, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(208, 208, 208))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btReservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(58, 58, 58)
-                        .addComponent(btIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46))))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addComponent(jlTitulo))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(227, 227, 227)
-                        .addComponent(btCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jlTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btReservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
-                .addComponent(btCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(165, 165, 165))
-        );
+        jtContraseña.setFont(new java.awt.Font("Doppio One", 0, 18)); // NOI18N
+        jtContraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtContraseñaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, 180, -1));
 
         setJMenuBar(jMenuBar1);
 
@@ -205,7 +180,7 @@ public class FRM_Menu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 350, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
         );
 
         pack();
@@ -218,6 +193,10 @@ public class FRM_Menu extends javax.swing.JFrame {
     private void btReservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReservacionesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btReservacionesActionPerformed
+
+    private void jtContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtContraseñaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtContraseñaActionPerformed
 
 
 
@@ -255,7 +234,7 @@ public class FRM_Menu extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel jlTitulo;
-    private javax.swing.JTextField jtContraseña;
+    private javax.swing.JPasswordField jtContraseña;
     private javax.swing.JTextField jtUsuario;
     // End of variables declaration//GEN-END:variables
 }

@@ -53,7 +53,8 @@ public class ReservationManager {
         if (findReservationByContact(clientContact) == null) {
             activeReservations.add(reservation);
             saveReservationsToJSON(activeReservations, ACTIVE_RESERVATIONS_JSON_FILE_PATH);
-            frmClient.updateView();
+            frmClient.mensaje("Reserva agregada exitosamente");
+            frmClient.cleanAdd();
         } else {
             frmClient.showReservationExistsMessage();
         }
@@ -66,6 +67,7 @@ public class ReservationManager {
         saveReservationsToJSON(cancelledReservations, CANCELLED_RESERVATIONS_JSON_FILE_PATH);
         reservation.getParkingSpace().setOccupied(false);
         frmClient.limpiar();
+        frmClient.mensaje("Se ha cancelado la reservacion");
     }
 
     public void searchReservation(String clientContact) {
@@ -145,6 +147,32 @@ public class ReservationManager {
                 return "Este";
             case "west":
                 return "Oeste";
+            default:
+                return null;
+        }
+    }
+
+    public String translateDurationToSpanish(String durationHours) {
+        switch (durationHours) {
+            case "6":
+                return "Medio dia";
+            case "24":
+                return "Dia entero";
+            case "8":
+                return "Noche";
+            default:
+                return null;
+        }
+    }
+
+    public String translateDurationToHours(String duration) {
+        switch (duration) {
+            case "Medio dia":
+                return "6";
+            case "Dia entero":
+                return "24";
+            case "Noche":
+                return "8";
             default:
                 return null;
         }
@@ -251,8 +279,8 @@ public class ReservationManager {
             return;
         }
 
-        String durationHours = frmClient.getSelectedItemHorario().equals("Medio dia") ? "6" :
-                (frmClient.getSelectedItemHorario().equals("Dia entero") ? "24" : "8");
+        String durationHours = frmClient.getSelectedItemHorario().equals("Medio dia") ? "6"
+                : (frmClient.getSelectedItemHorario().equals("Dia entero") ? "24" : "8");
 
         ClientReservation reservation = new ClientReservation(clientName, clientContact, VehicleType.valueOf(translatedVehicleType), durationHours);
 

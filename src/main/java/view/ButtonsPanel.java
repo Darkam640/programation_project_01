@@ -59,53 +59,57 @@ public class ButtonsPanel extends javax.swing.JPanel {
         btEliminar = new javax.swing.JButton();
         btSalir = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(0, 102, 102));
+        setBackground(new java.awt.Color(102, 102, 255));
 
-        btAgregar.setBackground(new java.awt.Color(204, 204, 204));
-        btAgregar.setFont(new java.awt.Font("Eras Medium ITC", 0, 18)); // NOI18N
-        btAgregar.setForeground(new java.awt.Color(0, 0, 0));
+        btAgregar.setBackground(new java.awt.Color(51, 51, 51));
+        btAgregar.setFont(new java.awt.Font("Eras Demi ITC", 1, 18)); // NOI18N
+        btAgregar.setForeground(new java.awt.Color(255, 255, 255));
         btAgregar.setText("Agregar");
+        btAgregar.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(102, 0, 255)));
 
-        btBuscar.setBackground(new java.awt.Color(204, 204, 204));
-        btBuscar.setFont(new java.awt.Font("Eras Medium ITC", 0, 18)); // NOI18N
-        btBuscar.setForeground(new java.awt.Color(0, 0, 0));
+        btBuscar.setBackground(new java.awt.Color(51, 51, 51));
+        btBuscar.setFont(new java.awt.Font("Eras Demi ITC", 1, 18)); // NOI18N
+        btBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btBuscar.setText("Buscar");
+        btBuscar.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(102, 0, 255)));
 
-        btEliminar.setBackground(new java.awt.Color(204, 204, 204));
-        btEliminar.setFont(new java.awt.Font("Eras Medium ITC", 0, 18)); // NOI18N
-        btEliminar.setForeground(new java.awt.Color(0, 0, 0));
+        btEliminar.setBackground(new java.awt.Color(51, 51, 51));
+        btEliminar.setFont(new java.awt.Font("Eras Demi ITC", 1, 18)); // NOI18N
+        btEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btEliminar.setText("Eliminar");
+        btEliminar.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(102, 0, 255)));
 
-        btSalir.setBackground(new java.awt.Color(204, 204, 204));
-        btSalir.setFont(new java.awt.Font("Eras Medium ITC", 0, 18)); // NOI18N
-        btSalir.setForeground(new java.awt.Color(0, 0, 0));
+        btSalir.setBackground(new java.awt.Color(51, 51, 51));
+        btSalir.setFont(new java.awt.Font("Eras Demi ITC", 1, 18)); // NOI18N
+        btSalir.setForeground(new java.awt.Color(255, 255, 255));
         btSalir.setText("Salir");
+        btSalir.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(102, 0, 255)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(btAgregar)
-                .addGap(18, 18, 18)
-                .addComponent(btBuscar)
-                .addGap(18, 18, 18)
-                .addComponent(btEliminar)
-                .addGap(18, 18, 18)
-                .addComponent(btSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addComponent(btAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(btBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(btSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(btEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btAgregar)
-                    .addComponent(btBuscar)
-                    .addComponent(btEliminar)
-                    .addComponent(btSalir))
-                .addContainerGap(43, Short.MAX_VALUE))
+                    .addComponent(btEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -1,16 +1,25 @@
 package controller;
 
-import model.User;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import model.*;
 import view.*;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 public class MenuManager {
 
     private User loggedInUser;
     private FRM_Menu frmMenu;
     private FRM_Client frmClient;
+
+    private static final String ACTIVE_RESERVATIONS_JSON_FILE_PATH = "src/main/resources/active_reservations.json";
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public MenuManager(FRM_Menu frmMenu) {
         this.frmMenu = frmMenu;
@@ -53,7 +62,21 @@ public class MenuManager {
     }
 
     public void generateReport() {
-        // Implement the logic to generate a report
+        try {
+            List<ClientReservation> reservations = loadReservationsFromJSON(ACTIVE_RESERVATIONS_JSON_FILE_PATH);
+            FRM_Report reportFrame = new FRM_Report(reservations);
+            reportFrame.setVisible(true);
+        } catch (IOException e) {
+            showErrorMessage("Error loading reservations: " + e.getMessage());
+        }
+    }
+    
+    private List<ClientReservation> loadReservationsFromJSON(String filePath) throws IOException {
+        File file = new File(filePath);
+        if (file.exists()) {
+            return objectMapper.readValue(file, new TypeReference<List<ClientReservation>>() {});
+        }
+        return List.of(); // Return an empty list if the file does not exist
     }
 
     public void showMainMenu() {
@@ -79,9 +102,6 @@ public class MenuManager {
             String password = frmMenu.getPassword();
             if (login(username, password)) {
                 showMainMenu();
-            } else {
-                // Mostrar error de inicio de sesión
-                JOptionPane.showMessageDialog(null, "failed. Please try again.");
             }
         }
     }
@@ -107,7 +127,7 @@ public class MenuManager {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            // Lógica para mostrar reportes
+            generateReport();
         }
     }
 
